@@ -1,0 +1,13 @@
+{
+  "name": "jest-tut",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "daspete <daspetemail@gmail.com>",
+  "scripts": {
+    "test": "jest"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "jest": "^27.5.1"
+  }
+}
