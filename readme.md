@@ -233,3 +233,4 @@ Done in 0.70s.
 
 Am Besten, ihr macht jetzt alle Schritte mal selbst, und schreibt einen zusätzlichen Test: Sobald keine Degrees im User Objekt vorhanden sind, soll der Space am Anfang entfernt werden, also der String soll dann sein: "John Doe" und nicht " John Doe"
 
+Alle verfügbaren "Matcher" seht ihr hier: https://jestjs.io/docs/using-matchers bzw. hier die vollständige Liste: https://jestjs.io/docs/expect
