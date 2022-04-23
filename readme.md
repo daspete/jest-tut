@@ -15,6 +15,14 @@ Das zwingt uns dazu, die Fumktion, oder die Klasse von Anfang bis Ende durchzude
 
 # Jest 
 
+Jeder Test in Jest startet mit einer test() Funktion, die sich einen String, die Beschreibung des aktuellen Testcases, und eine Funktion erwartet.
+
+Innerhalb dieser Funktion, expecten wir dann gewisse States.
+
+Also wir matchen das Ergebnis einer Funktion mit unserer Erwartung.
+
+Alle verfügbaren "Matcher" seht ihr hier: https://jestjs.io/docs/using-matchers bzw. hier die vollständige Liste: https://jestjs.io/docs/expect
+
 ## Installation
 
 um Jest zu nutzen, müssen wir nur das package installieren.
@@ -233,4 +241,3 @@ Done in 0.70s.
 
 Am Besten, ihr macht jetzt alle Schritte mal selbst, und schreibt einen zusätzlichen Test: Sobald keine Degrees im User Objekt vorhanden sind, soll der Space am Anfang entfernt werden, also der String soll dann sein: "John Doe" und nicht " John Doe"
 
-Alle verfügbaren "Matcher" seht ihr hier: https://jestjs.io/docs/using-matchers bzw. hier die vollständige Liste: https://jestjs.io/docs/expect
