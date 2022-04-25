@@ -239,5 +239,91 @@ Ran all test suites.
 Done in 0.70s.
 ```
 
+## Aufgabe 1
+
 Am Besten, ihr macht jetzt alle Schritte mal selbst, und schreibt einen zusätzlichen Test: Sobald keine Degrees im User Objekt vorhanden sind, soll der Space am Anfang entfernt werden, also der String soll dann sein: "John Doe" und nicht " John Doe"
 
+
+
+## Graph API Testing
+
+Um APIs zu testen, gibt es mehrere Möglichkeiten. Im Idealfall hat man eine API, die via express oder fastify ausgeliefert wird, und programatisch konfiguriert werden kann, damit man hier auch Datenbanktreiber switchen kann, oder mit Mock Daten arbeiten kann.
+
+Hat man das nicht, kann man natürlich auch über die laufende Dev Instanz einer API testen.
+
+Es gibt mehrere Packages, mit denen man APIs testen kann, entweder man macht es direkt über axios, oder aber es gibt supertest (https://www.npmjs.com/package/supertest). Damit kann man entweder direkt express routen testen, oder auch express app Objekte initialisieren und starten, oder aber auch externe APIs testen.
+
+Um supertest zu installieren, reicht einfach
+
+``` yarn add supertest ```
+
+oder 
+
+``` npm install --save-dev supertest ```
+
+Für dieses HowTo habe ich den Dienst: https://fakeql.com/ verwendet. Damit kann man sehr schnell eine Mock GraphQL API erstellen, die man dann verwenden kann.
+
+Die Instanz gegen die wir testen können liegt hier: https://fakeql.com/graphql/64398af605737cdb861ee4b54aa257d7
+Einen Playground können wir hier öffnen: https://graphqlzero.almansi.me/api
+
+Das ist eine Basic ToDo GraphQL API.
+
+Testen wir einmal die Users Query dieser API. Dazu erstellen wir eine "api.test.js" Datei mit folgendem Inhalt:
+
+```js
+const supertest = require('supertest')
+
+const apiURL = 'https://fakeql.com'
+
+test('it should fetch 10 users and the second user should have the firstname "Billy"', (done) => {
+    
+})
+```
+
+Das heißt, wir wollen mit supertest testen, ob unsere API 10 User zurückgibt und ob der 2. User den Namen Billy hat.
+
+Diesen Test können wir so machen:
+
+```js
+supertest(apiURL)
+    .post('/graphql/64398af605737cdb861ee4b54aa257d7')
+    .send({
+        query: `
+        {
+            users {
+                id
+                firstname
+            }
+        }
+        `
+    })
+    .set('Accept', 'application/json')
+    .end((err, res) => {
+        expect(err).toBeNull()
+        expect(res.status).toBe(200)
+        expect(res.body.data.users.length).toBe(10)
+        expect(res.body.data.users[1].firstname).toBe('Billy')
+        done()
+    })
+```
+
+Das ist nur ein relativ basic Beispiel, wie man mit supertest testen kann. 
+
+## Aufgabe
+
+Am Besten, ihr installiert euch mal in eurem Projekt supertest, und erstellt dann einen neuen Test: es soll ein Todo mit der id 2 geholt werden, und da soll getestet werden, ob der Task "Though we assume the latter, a hippopotamus is an orange from the right perspective" heißt, und ob der User, der das Todo erstellt hat die ID 6 hat
+
+die GraphQL Query dazu sieht wie folgt aus:
+
+```graphql
+{
+  todo(id: 2) {
+    id
+    task
+    user {
+      id
+      firstname
+    }
+  }
+}
+```
