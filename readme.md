@@ -327,3 +327,124 @@ die GraphQL Query dazu sieht wie folgt aus:
   }
 }
 ```
+
+## Vue testing
+
+Man kann mit Jest auch Vue Components testen. Dafür benötigt man die vue test-utils und auch babel, um den Vue compiler anzusprechen, sowie das vue jest Plugin.
+
+### Setup
+
+Zuerst muss man alle benötigten Packages (wichtig, mit der richtigen Versionsnummer!) installieren:
+
+```
+"@babel/core": "^7.17.9",
+"@babel/preset-env": "^7.16.11",
+"@vue/compiler-dom": "^3.2.33",
+"@vue/test-utils": "^1.2.0",
+"@vue/vue2-jest": "^27.0.0",
+"babel-core": "^7.0.0-bridge.0",
+"babel-jest": "^27.0.0",
+"jsdom-global": "^3.0.2",
+"vue": "^2.6.14",
+"vue-template-compiler": "^2.6.14"
+```
+
+Danach braucht man eine jest.config.js Datei, in der man angibt, mit welchem Builder die Tests ablaufen sollen:
+
+```js
+const config = {
+    verbose: true, // we want more info, whats going on
+    testEnvironment: "jsdom", // since nodejs has no window object, we need to tell jest, we want a browser environment
+    moduleFileExtensions: [
+        "js",
+        "json",
+        // tell Jest to handle `*.vue` files
+        "vue"
+    ],
+    transform: {
+        // process `*.vue` files with `vue-jest`
+        ".*\\.(vue)$": "@vue/vue2-jest",
+        ".*\\.(js)$": "babel-jest"
+    }
+  };
+  
+  module.exports = config;
+```
+
+und um Babel noch mit dem richtigen Preset zu starten, brauchen wir noch eine .babelrc.json Datei
+
+```json
+{
+    "presets": ["@babel/preset-env"]
+}
+  
+```
+
+Danach können wir eine einfache Vue Komponente erstellen: Wir bauen eine Counter Komponente, die zwei Buttons hat, ein Button erhöht einen Counter, ein anderer Button zieht eins ab.
+
+```vue
+<template>
+    <div>
+        <h1>Counter</h1>
+        <p>
+            <button class="decrement" @click="decrement">-</button>
+            <span>{{ count }}</span>
+            <button class="increment" @click="increment">+</button>
+        </p>
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            count: 0
+        }
+    },
+    methods: {
+        increment() {
+            this.count++
+        },
+        decrement() {
+            this.count--
+        }
+    }
+}
+</script>
+```
+
+Jetzt können wir auch schon beginnen, diese Komponente zu testen.
+
+Also erstellen wir eine "Counter.test.js" Datei mit folgendem Inhalt:
+
+```js
+import { mount  } from '@vue/test-utils'
+import Counter from './Counter.vue'
+
+test('should show "Counter" in an h1 tag', () => {
+    const componentInstance = mount(Counter)
+    expect(componentInstance.find('h1').text()).toBe('Counter')
+})
+```
+
+Wir importieren die mount Funktion der Vue Test-utils und die Counter Komponente selbst.
+
+danach testen wir, ob die gemountete Komponente einen H1 Tag hat, indem das Wort "Counter" steht.
+
+## Userinteraktionen triggern
+
+https://v1.test-utils.vuejs.org/guides/#testing-key-mouse-and-other-dom-events
+
+Man kann in gemounteten Komponenten Aktionen triggern, wie Keypresses, Mausklicks etc.
+
+z.B.:
+
+```js
+componentInstance.find('.increment').trigger('click')
+```
+
+Damit wird ein Element mit der Klasse "increment" gesucht, und "geklickt"
+## Aufgabe
+
+Erstellt jetzt einen Test, der checkt, ob der count um eins erhöht wird, wenn man den increment button klickt. -> man hat Zugriff auf die data Variablen mit "componentInstance.vm" also in dem Fall "componentInstance.vm.count"
+
