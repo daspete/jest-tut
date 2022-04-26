@@ -313,20 +313,6 @@ Das ist nur ein relativ basic Beispiel, wie man mit supertest testen kann.
 
 Am Besten, ihr installiert euch mal in eurem Projekt supertest, und erstellt dann einen neuen Test: es soll ein Todo mit der id 2 geholt werden, und da soll getestet werden, ob der Task "Though we assume the latter, a hippopotamus is an orange from the right perspective" heißt, und ob der User, der das Todo erstellt hat die ID 6 hat
 
-die GraphQL Query dazu sieht wie folgt aus:
-
-```graphql
-{
-  todo(id: 2) {
-    id
-    task
-    user {
-      id
-      firstname
-    }
-  }
-}
-```
 
 ## Vue testing
 
