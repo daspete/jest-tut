@@ -239,9 +239,9 @@ Ran all test suites.
 Done in 0.70s.
 ```
 
-## Aufgabe 1
+## Aufgabe
 
-Am Besten, ihr macht jetzt alle Schritte mal selbst, und schreibt einen zusätzlichen Test: Sobald keine Degrees im User Objekt vorhanden sind, soll der Space am Anfang entfernt werden, also der String soll dann sein: "John Doe" und nicht " John Doe"
+Macht jetzt alle Schritte selbst, und schreibt einen zusätzlichen Test: Sobald keine Degrees im User Objekt vorhanden sind, soll der Space am Anfang entfernt werden, also der String soll dann sein: "John Doe" und nicht " John Doe"
 
 
 
