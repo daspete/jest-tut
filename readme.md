@@ -309,10 +309,11 @@ supertest(apiURL)
 
 Das ist nur ein relativ basic Beispiel, wie man mit supertest testen kann. 
 
-## Aufgabe
+## Aufgaben
 
-Am Besten, ihr installiert euch mal in eurem Projekt supertest, und erstellt dann einen neuen Test: es soll ein Todo mit der id 2 geholt werden, und da soll getestet werden, ob der Task "Though we assume the latter, a hippopotamus is an orange from the right perspective" heißt, und ob der User, der das Todo erstellt hat die ID 6 hat
+- Installiert euch in eurem Projekt supertest, und erstellt dann einen neuen Test: es soll ein Todo mit der id 2 geholt werden, und da soll getestet werden, ob der Task "Though we assume the latter, a hippopotamus is an orange from the right perspective" heißt, und ob der User, der das Todo erstellt hat die ID 6 hat
 
+- Erstellt ein neues Todo mit der API und testet, ob dieses Todo auch wirklich gespeichert wird
 
 ## Vue testing
 
