@@ -264,7 +264,7 @@ oder
 Für dieses HowTo habe ich den Dienst: https://fakeql.com/ verwendet. Damit kann man sehr schnell eine Mock GraphQL API erstellen, die man dann verwenden kann.
 
 Die Instanz gegen die wir testen können liegt hier: https://fakeql.com/graphql/64398af605737cdb861ee4b54aa257d7
-Einen Playground können wir hier öffnen: https://graphqlzero.almansi.me/api
+Einen Playground können wir hier öffnen: https://api.mocki.io/playground?endpoint=https://fakeql.com/graphql/64398af605737cdb861ee4b54aa257d7
 
 Das ist eine Basic ToDo GraphQL API.
 

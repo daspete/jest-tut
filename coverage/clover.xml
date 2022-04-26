@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1650947801860" clover="3.2.0">
+  <project timestamp="1650947801860" name="All files">
+    <metrics statements="9" coveredstatements="8" conditionals="4" coveredconditionals="4" methods="5" coveredmethods="4" elements="18" coveredelements="16" complexity="0" loc="9" ncloc="9" packages="2" files="2" classes="2"/>
+    <package name="jest-tut">
+      <metrics statements="5" coveredstatements="5" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+      <file name="getFullName.js" path="/home/daspete/develop/tutorials/jest-tut/getFullName.js">
+        <metrics statements="5" coveredstatements="5" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="3" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="jest-tut.vue">
+      <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+      <file name="Counter.vue" path="/home/daspete/develop/tutorials/jest-tut/vue/Counter.vue">
+        <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+        <line num="1" count="12" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
