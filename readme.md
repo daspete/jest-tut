@@ -239,9 +239,9 @@ Ran all test suites.
 Done in 0.70s.
 ```
 
-## Aufgabe 1
+## Aufgabe
 
-Am Besten, ihr macht jetzt alle Schritte mal selbst, und schreibt einen zusätzlichen Test: Sobald keine Degrees im User Objekt vorhanden sind, soll der Space am Anfang entfernt werden, also der String soll dann sein: "John Doe" und nicht " John Doe"
+Macht jetzt alle Schritte selbst, und schreibt einen zusätzlichen Test: Sobald keine Degrees im User Objekt vorhanden sind, soll der Space am Anfang entfernt werden, also der String soll dann sein: "John Doe" und nicht " John Doe"
 
 
 
@@ -264,7 +264,7 @@ oder
 Für dieses HowTo habe ich den Dienst: https://fakeql.com/ verwendet. Damit kann man sehr schnell eine Mock GraphQL API erstellen, die man dann verwenden kann.
 
 Die Instanz gegen die wir testen können liegt hier: https://fakeql.com/graphql/64398af605737cdb861ee4b54aa257d7
-Einen Playground können wir hier öffnen: https://graphqlzero.almansi.me/api
+Einen Playground können wir hier öffnen: https://api.mocki.io/playground?endpoint=https://fakeql.com/graphql/64398af605737cdb861ee4b54aa257d7
 
 Das ist eine Basic ToDo GraphQL API.
 
@@ -309,21 +309,129 @@ supertest(apiURL)
 
 Das ist nur ein relativ basic Beispiel, wie man mit supertest testen kann. 
 
+## Aufgaben
+
+- Installiert euch in eurem Projekt supertest, und erstellt dann einen neuen Test: es soll ein Todo mit der id 2 geholt werden, und da soll getestet werden, ob der Task "Though we assume the latter, a hippopotamus is an orange from the right perspective" heißt, und ob der User, der das Todo erstellt hat die ID 6 hat
+
+- Erstellt ein neues Todo mit der API und testet, ob dieses Todo auch wirklich gespeichert wird
+
+## Vue testing
+
+Man kann mit Jest auch Vue Components testen. Dafür benötigt man die vue test-utils und auch babel, um den Vue compiler anzusprechen, sowie das vue jest Plugin.
+
+### Setup
+
+Zuerst muss man alle benötigten Packages (wichtig, mit der richtigen Versionsnummer!) installieren:
+
+```
+"@babel/core": "^7.17.9",
+"@babel/preset-env": "^7.16.11",
+"@vue/compiler-dom": "^3.2.33",
+"@vue/test-utils": "^1.2.0",
+"@vue/vue2-jest": "^27.0.0",
+"babel-core": "^7.0.0-bridge.0",
+"babel-jest": "^27.0.0",
+"jsdom-global": "^3.0.2",
+"vue": "^2.6.14",
+"vue-template-compiler": "^2.6.14"
+```
+
+Danach braucht man eine jest.config.js Datei, in der man angibt, mit welchem Builder die Tests ablaufen sollen:
+
+```js
+const config = {
+    verbose: true, // we want more info, whats going on
+    testEnvironment: "jsdom", // since nodejs has no window object, we need to tell jest, we want a browser environment
+    moduleFileExtensions: [
+        "js",
+        "json",
+        // tell Jest to handle `*.vue` files
+        "vue"
+    ],
+    transform: {
+        // process `*.vue` files with `vue-jest`
+        ".*\\.(vue)$": "@vue/vue2-jest",
+        ".*\\.(js)$": "babel-jest"
+    }
+  };
+  
+  module.exports = config;
+```
+
+und um Babel noch mit dem richtigen Preset zu starten, brauchen wir noch eine .babelrc.json Datei
+
+```json
+{
+    "presets": ["@babel/preset-env"]
+}
+  
+```
+
+Danach können wir eine einfache Vue Komponente erstellen: Wir bauen eine Counter Komponente, die zwei Buttons hat, ein Button erhöht einen Counter, ein anderer Button zieht eins ab.
+
+```vue
+<template>
+    <div>
+        <h1>Counter</h1>
+        <p>
+            <button class="decrement" @click="decrement">-</button>
+            <span>{{ count }}</span>
+            <button class="increment" @click="increment">+</button>
+        </p>
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            count: 0
+        }
+    },
+    methods: {
+        increment() {
+            this.count++
+        },
+        decrement() {
+            this.count--
+        }
+    }
+}
+</script>
+```
+
+Jetzt können wir auch schon beginnen, diese Komponente zu testen.
+
+Also erstellen wir eine "Counter.test.js" Datei mit folgendem Inhalt:
+
+```js
+import { mount  } from '@vue/test-utils'
+import Counter from './Counter.vue'
+
+test('should show "Counter" in an h1 tag', () => {
+    const componentInstance = mount(Counter)
+    expect(componentInstance.find('h1').text()).toBe('Counter')
+})
+```
+
+Wir importieren die mount Funktion der Vue Test-utils und die Counter Komponente selbst.
+
+danach testen wir, ob die gemountete Komponente einen H1 Tag hat, indem das Wort "Counter" steht.
+
+## Userinteraktionen triggern
+
+https://v1.test-utils.vuejs.org/guides/#testing-key-mouse-and-other-dom-events
+
+Man kann in gemounteten Komponenten Aktionen triggern, wie Keypresses, Mausklicks etc.
+
+z.B.:
+
+```js
+componentInstance.find('.increment').trigger('click')
+```
+
+Damit wird ein Element mit der Klasse "increment" gesucht, und "geklickt"
 ## Aufgabe
 
-Am Besten, ihr installiert euch mal in eurem Projekt supertest, und erstellt dann einen neuen Test: es soll ein Todo mit der id 2 geholt werden, und da soll getestet werden, ob der Task "Though we assume the latter, a hippopotamus is an orange from the right perspective" heißt, und ob der User, der das Todo erstellt hat die ID 6 hat
+Erstellt jetzt einen Test, der checkt, ob der count um eins erhöht wird, wenn man den increment button klickt. -> man hat Zugriff auf die data Variablen mit "componentInstance.vm" also in dem Fall "componentInstance.vm.count"
 
-die GraphQL Query dazu sieht wie folgt aus:
-
-```graphql
-{
-  todo(id: 2) {
-    id
-    task
-    user {
-      id
-      firstname
-    }
-  }
-}
-```
